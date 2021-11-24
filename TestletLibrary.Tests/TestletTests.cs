@@ -27,7 +27,7 @@ namespace TestletLibrary.Tests
             subject.TestletId.Should().Be(testletId);
         }
         
-        [Fact(Skip = "TDD")]
+        [Fact]
         public void Randomize_Invoke_ReturnsSetOfItems()
         {
             // Arrange
