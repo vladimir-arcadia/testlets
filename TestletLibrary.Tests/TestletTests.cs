@@ -26,5 +26,21 @@ namespace TestletLibrary.Tests
                 .And.BeOfType<Testlet>();
             subject.TestletId.Should().Be(testletId);
         }
+        
+        [Fact(Skip = "TDD")]
+        public void Randomize_Invoke_ReturnsSetOfItems()
+        {
+            // Arrange
+            var items = TestletItemsCollectionGenerator.Generate(4, 6);
+            var subject = new Testlet(Guid.NewGuid().ToString(), items);
+
+            // Act
+            var result = subject.Randomize();
+
+            // Assert
+            result.Should()
+                .NotBeNull()
+                .And.HaveCount(10);
+        }
     }
 }
