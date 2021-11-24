@@ -22,18 +22,4 @@
             //The assignment will be reviewed on the basis of – Tests written first, Correct logic, Well structured & clean readable code.
         }
     }
-
-    public class Item
-    {
-        public string ItemId;
-
-        public ItemTypeEnum ItemType;
-    }
-
-    public enum ItemTypeEnum
-    {
-        Pretest = 0,
-
-        Operational = 1
-    }
 }
