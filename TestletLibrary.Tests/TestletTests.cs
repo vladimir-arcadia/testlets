@@ -57,5 +57,19 @@ namespace TestletLibrary.Tests
             result[0].ItemType.Should().Be(ItemTypeEnum.Pretest);
             result[1].ItemType.Should().Be(ItemTypeEnum.Pretest);
         }
+
+        [Fact(Skip = "TDD")]
+        public void Randomize_Invoke_RandomizesItems()
+        {
+            // Arrange
+            var items = TestletItemsCollectionGenerator.Generate(4, 6);
+            var subject = new Testlet(Guid.NewGuid().ToString(), items);
+
+            // Act
+            var result = subject.Randomize();
+
+            // Assert
+            result.Should().BeEquivalentTo(items).And.NotBeEquivalentTo(items, opt => opt.WithStrictOrdering());
+        }
     }
 }
