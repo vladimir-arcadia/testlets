@@ -4,12 +4,15 @@ namespace TestletLibrary.Tests
 
     using FluentAssertions;
 
+    using TestletLibrary.Tests.Stubs;
     using TestletLibrary.Tests.TestDataGenerator;
 
     using Xunit;
 
     public class TestletTests
     {
+        private int RandomSeed = 8; // Just because I like the number.
+
         [Fact]
         public void Constructor_InvokedWithValidArguments_CreateInstance()
         {
@@ -18,7 +21,7 @@ namespace TestletLibrary.Tests
             var items = TestletItemsCollectionGenerator.Generate(4, 6);
 
             // Act
-            var subject = new Testlet(testletId, items);
+            var subject = new Testlet(testletId, items, new RandomizerStub(this.RandomSeed));
 
             // Assert
             subject.Should()
@@ -32,7 +35,7 @@ namespace TestletLibrary.Tests
         {
             // Arrange
             var items = TestletItemsCollectionGenerator.Generate(4, 6);
-            var subject = new Testlet(Guid.NewGuid().ToString(), items);
+            var subject = new Testlet(Guid.NewGuid().ToString(), items, new RandomizerStub(this.RandomSeed));
 
             // Act
             var result = subject.Randomize();
@@ -48,7 +51,7 @@ namespace TestletLibrary.Tests
         {
             // Arrange
             var items = TestletItemsCollectionGenerator.GenerateOperationalFirst(4, 6);
-            var subject = new Testlet(Guid.NewGuid().ToString(), items);
+            var subject = new Testlet(Guid.NewGuid().ToString(), items, new RandomizerStub(this.RandomSeed));
 
             // Act
             var result = subject.Randomize();
@@ -63,7 +66,7 @@ namespace TestletLibrary.Tests
         {
             // Arrange
             var items = TestletItemsCollectionGenerator.Generate(4, 6);
-            var subject = new Testlet(Guid.NewGuid().ToString(), items);
+            var subject = new Testlet(Guid.NewGuid().ToString(), items, new RandomizerStub(this.RandomSeed));
 
             // Act
             var result = subject.Randomize();
