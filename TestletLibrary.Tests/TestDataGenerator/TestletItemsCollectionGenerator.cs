@@ -9,17 +9,28 @@
         {
             var result = new Item[numberOfPretest + numberOfOperational];
 
-            for (int i = 0; i < numberOfPretest; i++)
-            {
-                result[i] = TestletItemGenerator.Generate(ItemTypeEnum.Pretest);
-            }
-
-            for (int i = 0; i < numberOfOperational; i++)
-            {
-                result[i + numberOfPretest] = TestletItemGenerator.Generate(ItemTypeEnum.Operational);
-            }
+            FillArray(0, numberOfPretest, ItemTypeEnum.Pretest, result);
+            FillArray(numberOfPretest, numberOfOperational, ItemTypeEnum.Operational, result);
 
             return result.ToList();
+        }
+
+        public static List<Item> GenerateOperationalFirst(int numberOfPretest, int numberOfOperational)
+        {
+            var result = new Item[numberOfPretest + numberOfOperational];
+
+            FillArray(0, numberOfOperational, ItemTypeEnum.Operational, result);
+            FillArray(numberOfOperational, numberOfPretest, ItemTypeEnum.Pretest, result);
+
+            return result.ToList();
+        }
+
+        private static void FillArray(int offset, int number, ItemTypeEnum type, Item[] array)
+        {
+            for (int i = offset; i < offset + number; i++)
+            {
+                array[i] = TestletItemGenerator.Generate(type);
+            }
         }
     }
 }

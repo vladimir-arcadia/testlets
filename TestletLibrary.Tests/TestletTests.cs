@@ -1,6 +1,7 @@
 namespace TestletLibrary.Tests
 {
     using System;
+    using System.Collections.Generic;
 
     using FluentAssertions;
 
@@ -41,6 +42,21 @@ namespace TestletLibrary.Tests
             result.Should()
                 .NotBeNull()
                 .And.HaveCount(10);
+        }
+
+        [Fact(Skip = "TDD")]
+        public void Randomize_Invoke_TwoFirstArePretest()
+        {
+            // Arrange
+            var items = TestletItemsCollectionGenerator.GenerateOperationalFirst(4, 6);
+            var subject = new Testlet(Guid.NewGuid().ToString(), items);
+
+            // Act
+            var result = subject.Randomize();
+
+            // Assert
+            result[0].ItemType.Should().Be(ItemTypeEnum.Pretest);
+            result[1].ItemType.Should().Be(ItemTypeEnum.Pretest);
         }
     }
 }
