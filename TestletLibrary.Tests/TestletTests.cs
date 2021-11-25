@@ -1,7 +1,6 @@
 namespace TestletLibrary.Tests
 {
     using System;
-    using System.Collections.Generic;
 
     using FluentAssertions;
 
@@ -44,7 +43,7 @@ namespace TestletLibrary.Tests
                 .And.HaveCount(10);
         }
 
-        [Fact(Skip = "TDD")]
+        [Fact]
         public void Randomize_Invoke_TwoFirstArePretest()
         {
             // Arrange
