@@ -1,5 +1,6 @@
 ﻿namespace TestletLibrary
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -19,17 +20,21 @@
 
         public List<Item> Randomize()
         {
-            var pretest = this.Items.Where(item => item.ItemType == ItemTypeEnum.Pretest).ToList();
-            var operational = this.Items.Where(item => item.ItemType == ItemTypeEnum.Operational);
+            var rnd = new Random();
+
+            var pretest = this.Items
+                .Where(item => item.ItemType == ItemTypeEnum.Pretest)
+                .OrderBy(item => rnd.Next()).ToList(); // Randomizing first two of the Pretests.
+
+            var ending = new List<Item>();
+            ending.AddRange(pretest.Skip(LeadingPretestNumber));
+            ending.AddRange(this.Items.Where(item => item.ItemType == ItemTypeEnum.Operational));
+
 
             var result = new List<Item>();
             result.AddRange(pretest.Take(LeadingPretestNumber));
-            result.AddRange(pretest.Skip(LeadingPretestNumber));
-            result.AddRange(operational);
+            result.AddRange(ending.OrderBy(item => rnd.Next())); // Mixing the rest of Pretest and all the operational.
             return result;
-
-            //Items private collection has 6 Operational and 4 Pretest Items. Randomize the order of these items as per the requirement (with TDD)
-            //The assignment will be reviewed on the basis of – Tests written first, Correct logic, Well structured & clean readable code.
         }
     }
 }

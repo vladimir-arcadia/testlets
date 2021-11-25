@@ -58,7 +58,7 @@ namespace TestletLibrary.Tests
             result[1].ItemType.Should().Be(ItemTypeEnum.Pretest);
         }
 
-        [Fact(Skip = "TDD")]
+        [Fact]
         public void Randomize_Invoke_RandomizesItems()
         {
             // Arrange
