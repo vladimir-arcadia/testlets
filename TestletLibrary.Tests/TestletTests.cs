@@ -19,15 +19,64 @@ namespace TestletLibrary.Tests
             // Arrange
             var testletId = Guid.NewGuid().ToString();
             var items = TestletItemsCollectionGenerator.Generate(4, 6);
+            var randomizer = new RandomizerStub(this.RandomSeed);
 
             // Act
-            var subject = new Testlet(testletId, items, new RandomizerStub(this.RandomSeed));
+            var subject = new Testlet(testletId, items, randomizer);
 
             // Assert
             subject.Should()
                 .NotBeNull()
                 .And.BeOfType<Testlet>();
             subject.TestletId.Should().Be(testletId);
+        }
+
+        [Fact(Skip = "TDD")]
+        public void Constructor_IdIsNull_ThrowsArgumentNullException()
+        {
+            // Arrange
+            var items = TestletItemsCollectionGenerator.Generate(4, 6);
+            var randomizer = new RandomizerStub(this.RandomSeed);
+            
+            // Act
+            Action act = () => new Testlet(null, items, randomizer);
+
+            // Assert
+            act.Should()
+                .Throw<ArgumentNullException>()
+                .WithMessage("Value cannot be null. (Parameter 'testletId')");
+        }
+
+        [Fact(Skip = "TDD")]
+        public void Constructor_ItemCollectionIsNull_ThrowsArgumentNullException()
+        {
+            // Arrange
+            var testletId = Guid.NewGuid().ToString();
+            var randomizer = new RandomizerStub(this.RandomSeed);
+            
+            // Act
+            Action act = () => new Testlet(testletId, null, randomizer);
+
+            // Assert
+            act.Should()
+                .Throw<ArgumentNullException>()
+                .WithMessage("Value cannot be null. (Parameter 'items')");
+        }
+
+        [Fact(Skip = "TDD")]
+        public void Constructor_RandomizerIsNull_ThrowsArgumentNullException()
+        {
+            // Arrange
+            var testletId = Guid.NewGuid().ToString();
+            var items = TestletItemsCollectionGenerator.Generate(4, 6);
+            
+            // Act
+            Action act = () => new Testlet(testletId, items, null);
+
+            // Assert
+            act.Should()
+                .Throw<ArgumentNullException>()
+                .WithMessage("Value cannot be null. (Parameter 'rnd')");
         }
         
         [Fact]
