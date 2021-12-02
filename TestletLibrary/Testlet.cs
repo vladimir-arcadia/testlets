@@ -1,5 +1,6 @@
 ﻿namespace TestletLibrary
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -15,12 +16,12 @@
 
         public Testlet(string testletId, List<Item> items, IRandomizer rnd)
         {
-            this.TestletId = testletId;
-            this.items = items;
+            this.TestletId = testletId ?? throw new ArgumentNullException(nameof(testletId));
+            this.items = items ?? throw new ArgumentNullException(nameof(items));
 
             // When we use some concrete implementation of the randomizer we can not control test environment.
             // To prevent occasional test fails we should delegate randomization to something that we can control.
-            this.rnd = rnd;
+            this.rnd = rnd ?? throw new ArgumentNullException(nameof(rnd));
         }
 
         public List<Item> Randomize()
