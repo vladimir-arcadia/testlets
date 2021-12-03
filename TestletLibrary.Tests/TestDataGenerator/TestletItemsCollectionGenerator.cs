@@ -9,8 +9,8 @@
         {
             var result = new Item[numberOfPretest + numberOfOperational];
 
-            FillArray(0, numberOfPretest, ItemTypeEnum.Pretest, result);
-            FillArray(numberOfPretest, numberOfOperational, ItemTypeEnum.Operational, result);
+            FillArray(0, numberOfPretest, ItemType.Pretest, result);
+            FillArray(numberOfPretest, numberOfOperational, ItemType.Operational, result);
 
             return result.ToList();
         }
@@ -19,18 +19,15 @@
         {
             var result = new Item[numberOfPretest + numberOfOperational];
 
-            FillArray(0, numberOfOperational, ItemTypeEnum.Operational, result);
-            FillArray(numberOfOperational, numberOfPretest, ItemTypeEnum.Pretest, result);
+            FillArray(0, numberOfOperational, ItemType.Operational, result);
+            FillArray(numberOfOperational, numberOfPretest, ItemType.Pretest, result);
 
             return result.ToList();
         }
 
-        private static void FillArray(int offset, int number, ItemTypeEnum type, Item[] array)
+        private static void FillArray(int offset, int number, ItemType type, Item[] array)
         {
-            for (int i = offset; i < offset + number; i++)
-            {
-                array[i] = TestletItemGenerator.Generate(type);
-            }
+            for (var i = offset; i < offset + number; i++) array[i] = TestletItemGenerator.Generate(type);
         }
     }
 }

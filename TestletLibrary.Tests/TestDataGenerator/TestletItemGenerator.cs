@@ -4,7 +4,7 @@
 
     internal static class TestletItemGenerator
     {
-        public static Item Generate(ItemTypeEnum type)
+        public static Item Generate(ItemType type)
         {
             return new() { ItemId = Guid.NewGuid().ToString(), ItemType = type };
         }

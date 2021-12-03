@@ -4,6 +4,6 @@
     {
         public string ItemId;
 
-        public ItemTypeEnum ItemType;
+        public ItemType ItemType;
     }
 }

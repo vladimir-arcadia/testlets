@@ -4,16 +4,16 @@
 
     internal class RandomizerStub : IRandomizer
     {
-        private Random rnd;
+        private readonly Random random;
 
         public RandomizerStub(int seed)
         {
-            this.rnd = new Random(seed);
+            this.random = new Random(seed);
         }
 
         public int NextInt()
         {
-            return this.rnd.Next();
+            return this.random.Next();
         }
     }
 }

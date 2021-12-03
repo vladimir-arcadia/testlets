@@ -1,6 +1,6 @@
 ﻿namespace TestletLibrary
 {
-    public enum ItemTypeEnum
+    public enum ItemType
     {
         Pretest = 0,
 
