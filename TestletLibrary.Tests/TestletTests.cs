@@ -1,6 +1,7 @@
 namespace TestletLibrary.Tests
 {
     using System;
+    using System.Linq;
 
     using FluentAssertions;
 
@@ -137,6 +138,22 @@ namespace TestletLibrary.Tests
             // Assert
             result[0].ItemType.Should().Be(ItemType.Pretest);
             result[1].ItemType.Should().Be(ItemType.Pretest);
+        }
+
+        [Fact]
+        public void Randomize_Invoke_LastEightAreTwoPretestAndSixOperational()
+        {
+            // Arrange
+            var items = TestletItemsCollectionGenerator.GenerateOperationalFirst(4, 6);
+            var subject = new Testlet(Guid.NewGuid().ToString(), items, new RandomizerStub(this.RandomSeed));
+
+            // Act
+            var result = subject.Randomize();
+
+            // Assert
+            var lastEight = result.Skip(2);
+            lastEight.Count(item => item.ItemType == ItemType.Pretest).Should().Be(2);
+            lastEight.Count(item => item.ItemType == ItemType.Operational).Should().Be(6);
         }
     }
 }
