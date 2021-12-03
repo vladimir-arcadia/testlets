@@ -25,9 +25,7 @@ namespace TestletLibrary.Tests
             var subject = new Testlet(testletId, items, randomizer);
 
             // Assert
-            subject.Should()
-                .NotBeNull()
-                .And.BeOfType<Testlet>();
+            subject.Should().NotBeNull();
             subject.TestletId.Should().Be(testletId);
         }
 
