@@ -78,7 +78,30 @@ namespace TestletLibrary.Tests
                 .Throw<ArgumentNullException>()
                 .WithMessage("Value cannot be null. (Parameter 'rnd')");
         }
-        
+
+        [Theory(Skip = "TDD")]
+        [InlineData(ItemTypeEnum.Pretest, 3)]
+        [InlineData(ItemTypeEnum.Pretest, 5)]
+        [InlineData(ItemTypeEnum.Operational, 5)]
+        [InlineData(ItemTypeEnum.Operational, 7)]
+        public void Constructor_NumberOfItemsIsWrong_ThrowsArgumentException(ItemTypeEnum itemType, int number)
+        {
+            // Arrange
+            var expectedNumber = itemType == ItemTypeEnum.Pretest ? 4 : 6;
+
+            var testletId = Guid.NewGuid().ToString();
+            var items = TestletItemsCollectionGenerator.Generate(number, 6);
+            var randomizer = new RandomizerStub(this.RandomSeed);
+
+            // Act
+            Action act = () => new Testlet(testletId, items, randomizer);
+
+            // Assert
+            act.Should()
+                .Throw<ArgumentException>()
+                .WithMessage($"Number of {itemType} items should be {expectedNumber}.");
+        }
+
         [Fact]
         public void Randomize_Invoke_ReturnsSetOfItems()
         {
