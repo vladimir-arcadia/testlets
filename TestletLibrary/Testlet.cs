@@ -12,7 +12,7 @@
 
         private const int LeadingPretestNumber = 2;
 
-        public string TestletId;
+        public string TestletId { get; }
 
         private readonly List<Item> items;
 
