@@ -79,18 +79,18 @@ namespace TestletLibrary.Tests
                 .WithMessage("Value cannot be null. (Parameter 'rnd')");
         }
 
-        [Theory(Skip = "TDD")]
-        [InlineData(ItemTypeEnum.Pretest, 3)]
-        [InlineData(ItemTypeEnum.Pretest, 5)]
-        [InlineData(ItemTypeEnum.Operational, 5)]
-        [InlineData(ItemTypeEnum.Operational, 7)]
-        public void Constructor_NumberOfItemsIsWrong_ThrowsArgumentException(ItemTypeEnum itemType, int number)
+        [Theory]
+        [InlineData(ItemTypeEnum.Pretest, 3, 6)]
+        [InlineData(ItemTypeEnum.Pretest, 5, 6)]
+        [InlineData(ItemTypeEnum.Operational, 4, 5)]
+        [InlineData(ItemTypeEnum.Operational, 4, 7)]
+        public void Constructor_NumberOfItemsIsWrong_ThrowsArgumentException(ItemTypeEnum itemType, int numberOfPretest, int numberOfOperational)
         {
             // Arrange
             var expectedNumber = itemType == ItemTypeEnum.Pretest ? 4 : 6;
 
             var testletId = Guid.NewGuid().ToString();
-            var items = TestletItemsCollectionGenerator.Generate(number, 6);
+            var items = TestletItemsCollectionGenerator.Generate(numberOfPretest, numberOfOperational);
             var randomizer = new RandomizerStub(this.RandomSeed);
 
             // Act
